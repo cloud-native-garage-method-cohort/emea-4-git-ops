@@ -46,7 +46,7 @@ spec:
       - env:
         - name: DEBUG
           value: myapp:*
-        image: quay.io/dale-lane/express-dale-lane:668ee30f22862908c665637830d1d6c9b9399868
+        image: quay.io/dale-lane/express-dale-lane:d71c9677ef15c4313ac0c6c97ae3b8632cf943e7
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
