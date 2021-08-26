@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: fc18abe2012bc6c946eef8853b06098f1dafefb9
+    app.openshift.io/vcs-uri: https://github.com/cloud-native-garage-method-cohort/mario-sam-next-app
+  labels:
+    app: mario-sam-next-js-sample-app
+    app.kubernetes.io/instance: mario-sam-next-js-sample-app
+    app.kubernetes.io/name: mario-sam-next-js-sample-app-next-js-sample-app
+    app.openshift.io/runtime: js
+  name: next-js-sample-app-service
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: mario-sam-next-js-sample-app
+    app.kubernetes.io/instance: mario-sam-next-js-sample-app
+    app.kubernetes.io/name: mario-sam-next-js-sample-app-next-js-sample-app
+    app.openshift.io/runtime: js
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: fc18abe2012bc6c946eef8853b06098f1dafefb9
+    app.openshift.io/vcs-uri: https://github.com/cloud-native-garage-method-cohort/mario-sam-next-app
+  labels:
+    app: mario-sam-next-js-sample-app
+    app.kubernetes.io/instance: mario-sam-next-js-sample-app
+    app.kubernetes.io/name: mario-sam-next-js-sample-app-next-js-sample-app
+    app.openshift.io/runtime: js
+  name: next-js-sample-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mario-sam-next-js-sample-app
+      app.kubernetes.io/instance: mario-sam-next-js-sample-app
+      app.kubernetes.io/name: mario-sam-next-js-sample-app-next-js-sample-app
+      app.openshift.io/runtime: js
+  template:
+    metadata:
+      annotations:
+        app.openshift.io/vcs-ref: fc18abe2012bc6c946eef8853b06098f1dafefb9
+        app.openshift.io/vcs-uri: https://github.com/cloud-native-garage-method-cohort/mario-sam-next-app
+      labels:
+        app: mario-sam-next-js-sample-app
+        app.kubernetes.io/instance: mario-sam-next-js-sample-app
+        app.kubernetes.io/name: mario-sam-next-js-sample-app-next-js-sample-app
+        app.openshift.io/runtime: js
+    spec:
+      containers:
+      - image: quay.io/samchinellato/next-js-sample-app:fc18abe2012bc6c946eef8853b06098f1dafefb9
+        name: next-js-sample-app
+        ports:
+        - containerPort: 3000
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: fc18abe2012bc6c946eef8853b06098f1dafefb9
+    app.openshift.io/vcs-uri: https://github.com/cloud-native-garage-method-cohort/mario-sam-next-app
+    openshift.io/host.generated: "true"
+  labels:
+    app: mario-sam-next-js-sample-app
+    app.kubernetes.io/instance: mario-sam-next-js-sample-app
+    app.kubernetes.io/name: mario-sam-next-js-sample-app-next-js-sample-app
+    app.openshift.io/runtime: js
+  name: next-js-sample-app
+spec:
+  tls:
+    termination: edge
+  to:
+    kind: Service
+    name: next-js-sample-app-service
+    weight: 100
+  wildcardPolicy: None
