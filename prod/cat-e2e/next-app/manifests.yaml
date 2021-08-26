@@ -1,0 +1,121 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: 914311204ddb7c4d16fdd4de4c0c8a6603ae9c86
+    app.openshift.io/vcs-uri: https://github.com/sanardi/cat-next-app
+  labels:
+    app: cat-e2e
+    app.kubernetes.io/instance: cat-e2e
+    app.kubernetes.io/name: cat-e2e-next-app
+    app.openshift.io/runtime: js
+  name: cat-node-app
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: cat-e2e
+    app.kubernetes.io/instance: cat-e2e
+    app.kubernetes.io/name: cat-e2e-next-app
+    app.openshift.io/runtime: js
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: 914311204ddb7c4d16fdd4de4c0c8a6603ae9c86
+    app.openshift.io/vcs-uri: https://github.com/sanardi/cat-next-app
+  labels:
+    app: cat-e2e
+    app.kubernetes.io/instance: cat-e2e
+    app.kubernetes.io/name: cat-e2e-next-app
+    app.openshift.io/runtime: js
+  name: cat-next-app
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: cat-e2e
+      app.kubernetes.io/instance: cat-e2e
+      app.kubernetes.io/name: cat-e2e-next-app
+      app.openshift.io/runtime: js
+  template:
+    metadata:
+      annotations:
+        app.openshift.io/vcs-ref: 914311204ddb7c4d16fdd4de4c0c8a6603ae9c86
+        app.openshift.io/vcs-uri: https://github.com/sanardi/cat-next-app
+      labels:
+        app: cat-e2e
+        app.kubernetes.io/instance: cat-e2e
+        app.kubernetes.io/name: cat-e2e-next-app
+        app.openshift.io/runtime: js
+    spec:
+      containers:
+      - env:
+        - name: INGRESS_HOST
+        - name: PROTOCOLS
+        - name: LOG_LEVEL
+          value: debug
+        image: quay.io/sanardibla/catherine-next-app:914311204ddb7c4d16fdd4de4c0c8a6603ae9c86
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 3000
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: cat-next-app
+        ports:
+        - containerPort: 3000
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: http
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: 914311204ddb7c4d16fdd4de4c0c8a6603ae9c86
+    app.openshift.io/vcs-uri: https://github.com/sanardi/cat-next-app
+    argocd.argoproj.io/sync-options: Validate=false
+    openshift.io/host.generated: "true"
+  labels:
+    app: cat-e2e
+    app.kubernetes.io/instance: cat-e2e
+    app.kubernetes.io/name: cat-e2e-next-app
+    app.openshift.io/runtime: js
+  name: cat-node-app
+spec:
+  tls:
+    termination: edge
+  to:
+    kind: Service
+    name: cat-node-app
+    weight: 100
+  wildcardPolicy: None
