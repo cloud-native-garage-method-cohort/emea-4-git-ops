@@ -1,0 +1,121 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: 9418b3d189e311e68fe9aacf19cb6f45a0bb118c
+    app.openshift.io/vcs-uri: https://github.com/fahadmunawarjan/express-sample-app
+  labels:
+    app: fahad-jan-my-first-pipeline
+    app.kubernetes.io/instance: fahad-jan-my-first-pipeline
+    app.kubernetes.io/name: fahad-jan-my-first-pipeline-express-sample-app
+    app.openshift.io/runtime: js
+  name: express-sample-app
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: fahad-jan-my-first-pipeline
+    app.kubernetes.io/instance: fahad-jan-my-first-pipeline
+    app.kubernetes.io/name: fahad-jan-my-first-pipeline-express-sample-app
+    app.openshift.io/runtime: js
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: 9418b3d189e311e68fe9aacf19cb6f45a0bb118c
+    app.openshift.io/vcs-uri: https://github.com/fahadmunawarjan/express-sample-app
+  labels:
+    app: fahad-jan-my-first-pipeline
+    app.kubernetes.io/instance: fahad-jan-my-first-pipeline
+    app.kubernetes.io/name: fahad-jan-my-first-pipeline-express-sample-app
+    app.openshift.io/runtime: js
+  name: express-sample-app
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: fahad-jan-my-first-pipeline
+      app.kubernetes.io/instance: fahad-jan-my-first-pipeline
+      app.kubernetes.io/name: fahad-jan-my-first-pipeline-express-sample-app
+      app.openshift.io/runtime: js
+  template:
+    metadata:
+      annotations:
+        app.openshift.io/vcs-ref: 9418b3d189e311e68fe9aacf19cb6f45a0bb118c
+        app.openshift.io/vcs-uri: https://github.com/fahadmunawarjan/express-sample-app
+      labels:
+        app: fahad-jan-my-first-pipeline
+        app.kubernetes.io/instance: fahad-jan-my-first-pipeline
+        app.kubernetes.io/name: fahad-jan-my-first-pipeline-express-sample-app
+        app.openshift.io/runtime: js
+    spec:
+      containers:
+      - env:
+        - name: INGRESS_HOST
+        - name: PROTOCOLS
+        - name: LOG_LEVEL
+          value: debug
+        image: quay.io/fahadrha/express-sample-app:9418b3d189e311e68fe9aacf19cb6f45a0bb118c
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 3000
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: express-sample-app
+        ports:
+        - containerPort: 3000
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: http
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: 9418b3d189e311e68fe9aacf19cb6f45a0bb118c
+    app.openshift.io/vcs-uri: https://github.com/fahadmunawarjan/express-sample-app
+    argocd.argoproj.io/sync-options: Validate=false
+    openshift.io/host.generated: "true"
+  labels:
+    app: fahad-jan-my-first-pipeline
+    app.kubernetes.io/instance: fahad-jan-my-first-pipeline
+    app.kubernetes.io/name: fahad-jan-my-first-pipeline-express-sample-app
+    app.openshift.io/runtime: js
+  name: express-sample-app
+spec:
+  tls:
+    termination: edge
+  to:
+    kind: Service
+    name: express-sample-app
+    weight: 100
+  wildcardPolicy: None
