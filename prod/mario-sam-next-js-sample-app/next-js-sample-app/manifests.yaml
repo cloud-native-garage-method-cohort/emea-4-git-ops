@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: fc18abe2012bc6c946eef8853b06098f1dafefb9
+    app.openshift.io/vcs-ref: c0fa853b85de3a549a71f561958c9230177e6e8b
     app.openshift.io/vcs-uri: https://github.com/cloud-native-garage-method-cohort/mario-sam-next-app
   labels:
     app: mario-sam-next-js-sample-app
@@ -25,7 +25,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: fc18abe2012bc6c946eef8853b06098f1dafefb9
+    app.openshift.io/vcs-ref: c0fa853b85de3a549a71f561958c9230177e6e8b
     app.openshift.io/vcs-uri: https://github.com/cloud-native-garage-method-cohort/mario-sam-next-app
   labels:
     app: mario-sam-next-js-sample-app
@@ -44,7 +44,7 @@ spec:
   template:
     metadata:
       annotations:
-        app.openshift.io/vcs-ref: fc18abe2012bc6c946eef8853b06098f1dafefb9
+        app.openshift.io/vcs-ref: c0fa853b85de3a549a71f561958c9230177e6e8b
         app.openshift.io/vcs-uri: https://github.com/cloud-native-garage-method-cohort/mario-sam-next-app
       labels:
         app: mario-sam-next-js-sample-app
@@ -53,7 +53,7 @@ spec:
         app.openshift.io/runtime: js
     spec:
       containers:
-      - image: quay.io/samchinellato/next-js-sample-app:fc18abe2012bc6c946eef8853b06098f1dafefb9
+      - image: quay.io/samchinellato/next-js-sample-app:c0fa853b85de3a549a71f561958c9230177e6e8b
         name: next-js-sample-app
         ports:
         - containerPort: 3000
@@ -62,7 +62,7 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: fc18abe2012bc6c946eef8853b06098f1dafefb9
+    app.openshift.io/vcs-ref: c0fa853b85de3a549a71f561958c9230177e6e8b
     app.openshift.io/vcs-uri: https://github.com/cloud-native-garage-method-cohort/mario-sam-next-app
     openshift.io/host.generated: "true"
   labels:
