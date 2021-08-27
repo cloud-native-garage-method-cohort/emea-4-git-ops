@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: a7aabecd7f835781317734ab808807d484c50141
+    app.openshift.io/vcs-ref: cbd75f4eefc1538fb966207d9f01d974de8e8437
     app.openshift.io/vcs-uri: https://github.com/davidbieder/fullstack-backend
   labels:
     app: david-bieder-fullstack
@@ -28,7 +28,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: a7aabecd7f835781317734ab808807d484c50141
+    app.openshift.io/vcs-ref: cbd75f4eefc1538fb966207d9f01d974de8e8437
     app.openshift.io/vcs-uri: https://github.com/davidbieder/fullstack-backend
   labels:
     app: david-bieder-fullstack
@@ -49,7 +49,7 @@ spec:
   template:
     metadata:
       annotations:
-        app.openshift.io/vcs-ref: a7aabecd7f835781317734ab808807d484c50141
+        app.openshift.io/vcs-ref: cbd75f4eefc1538fb966207d9f01d974de8e8437
         app.openshift.io/vcs-uri: https://github.com/davidbieder/fullstack-backend
       labels:
         app: david-bieder-fullstack
@@ -63,7 +63,7 @@ spec:
         - name: PROTOCOLS
         - name: LOG_LEVEL
           value: debug
-        image: quay.io/davidbieder/fullstack-backend:a7aabecd7f835781317734ab808807d484c50141
+        image: quay.io/davidbieder/fullstack-backend:cbd75f4eefc1538fb966207d9f01d974de8e8437
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
@@ -101,7 +101,7 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: a7aabecd7f835781317734ab808807d484c50141
+    app.openshift.io/vcs-ref: cbd75f4eefc1538fb966207d9f01d974de8e8437
     app.openshift.io/vcs-uri: https://github.com/davidbieder/fullstack-backend
   labels:
     app: david-bieder-fullstack
