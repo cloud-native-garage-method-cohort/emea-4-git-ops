@@ -8,7 +8,7 @@ metadata:
   name: postgres-credentials
 stringData:
   dbhost: database.dale-nick-fahad-nextjsapp.svc
-  dbname: example
+  dbname: postgres
   dbpassword: postgres
   dbport: "5432"
   dbuser: postgres
@@ -85,7 +85,7 @@ spec:
             secretKeyRef:
               key: dbname
               name: postgres-credentials
-        image: quay.io/dale-lane/nextjs-dale-lane:e62b2aa10750ae5297119b4a1f0ee76e507f18df
+        image: quay.io/dale-lane/nextjs-dale-lane:a4e76cfd582c7b811b8b0fa3b333ddf683092717
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
