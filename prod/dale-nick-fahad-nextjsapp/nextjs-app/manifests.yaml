@@ -1,4 +1,20 @@
 apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app: nextjs-app
+    app.kubernetes.io/instance: nextjs-app-instance
+    app.kubernetes.io/name: nextjs-app
+  name: postgres-credentials
+stringData:
+  dbhost: database.dale-nick-fahad-nextjsapp.svc
+  dbname: example
+  dbpassword: postgres
+  dbport: "5432"
+  dbuser: postgres
+type: Opaque
+---
+apiVersion: v1
 kind: Service
 metadata:
   labels:
@@ -44,9 +60,32 @@ spec:
     spec:
       containers:
       - env:
-        - name: DEBUG
-          value: myapp:*
-        image: quay.io/dale-lane/nextjs-dale-lane:bd2e8911826cf45ccf2afee7a1147ad76c937881
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              key: dbuser
+              name: postgres-credentials
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: dbpassword
+              name: postgres-credentials
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              key: dbhost
+              name: postgres-credentials
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              key: dbport
+              name: postgres-credentials
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              key: dbname
+              name: postgres-credentials
+        image: quay.io/dale-lane/nextjs-dale-lane:883e2bbb59dda69e7cc83a15d1abdbfd7fd2a0ef
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
