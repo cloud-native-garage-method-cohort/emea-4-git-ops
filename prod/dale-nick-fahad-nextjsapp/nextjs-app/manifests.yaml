@@ -85,7 +85,7 @@ spec:
             secretKeyRef:
               key: dbname
               name: postgres-credentials
-        image: quay.io/dale-lane/nextjs-dale-lane:06cc8088ef2801ffd8e3aa5742b0633a374909d9
+        image: quay.io/dale-lane/nextjs-dale-lane:e62b2aa10750ae5297119b4a1f0ee76e507f18df
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
