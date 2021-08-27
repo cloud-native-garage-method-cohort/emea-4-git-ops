@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: 63c629e3b1ffca93977e31d05ae4899b2a4d6076
+    app.openshift.io/vcs-ref: 183f00b6a86df54471ca22b5e2c0b07928da92f8
     app.openshift.io/vcs-uri: https://github.com/Sanardi/cat-next-app
   labels:
     app: cat-e2e
@@ -28,7 +28,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: 63c629e3b1ffca93977e31d05ae4899b2a4d6076
+    app.openshift.io/vcs-ref: 183f00b6a86df54471ca22b5e2c0b07928da92f8
     app.openshift.io/vcs-uri: https://github.com/Sanardi/cat-next-app
   labels:
     app: cat-e2e
@@ -49,7 +49,7 @@ spec:
   template:
     metadata:
       annotations:
-        app.openshift.io/vcs-ref: 63c629e3b1ffca93977e31d05ae4899b2a4d6076
+        app.openshift.io/vcs-ref: 183f00b6a86df54471ca22b5e2c0b07928da92f8
         app.openshift.io/vcs-uri: https://github.com/Sanardi/cat-next-app
       labels:
         app: cat-e2e
@@ -63,7 +63,7 @@ spec:
         - name: PROTOCOLS
         - name: LOG_LEVEL
           value: debug
-        image: quay.io/sanardibla/catherine-next-app:63c629e3b1ffca93977e31d05ae4899b2a4d6076
+        image: quay.io/sanardibla/catherine-next-app:183f00b6a86df54471ca22b5e2c0b07928da92f8
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
@@ -101,7 +101,7 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: 63c629e3b1ffca93977e31d05ae4899b2a4d6076
+    app.openshift.io/vcs-ref: 183f00b6a86df54471ca22b5e2c0b07928da92f8
     app.openshift.io/vcs-uri: https://github.com/Sanardi/cat-next-app
     argocd.argoproj.io/sync-options: Validate=false
     openshift.io/host.generated: "true"
