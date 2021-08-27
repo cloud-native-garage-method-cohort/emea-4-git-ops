@@ -46,7 +46,7 @@ spec:
       - env:
         - name: DEBUG
           value: myapp:*
-        image: quay.io/dale-lane/nextjs-dale-lane:849ad9c47c987790b027384111b959356a497d20
+        image: quay.io/dale-lane/nextjs-dale-lane:bd2e8911826cf45ccf2afee7a1147ad76c937881
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
