@@ -2,8 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: c7b33d0f09212d64370fba0d60ffe849b15f44e8
-    app.openshift.io/vcs-uri: https://github.com/sanardi/cat-next-app
+    app.openshift.io/vcs-ref: b8107fe456da1a0a32e9f166f20c32cf6d422e8a
+    app.openshift.io/vcs-uri: https://github.com/Sanardi/cat-next-app
   labels:
     app: cat-e2e
     app.kubernetes.io/instance: cat-e2e
@@ -28,8 +28,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: c7b33d0f09212d64370fba0d60ffe849b15f44e8
-    app.openshift.io/vcs-uri: https://github.com/sanardi/cat-next-app
+    app.openshift.io/vcs-ref: b8107fe456da1a0a32e9f166f20c32cf6d422e8a
+    app.openshift.io/vcs-uri: https://github.com/Sanardi/cat-next-app
   labels:
     app: cat-e2e
     app.kubernetes.io/instance: cat-e2e
@@ -49,8 +49,8 @@ spec:
   template:
     metadata:
       annotations:
-        app.openshift.io/vcs-ref: c7b33d0f09212d64370fba0d60ffe849b15f44e8
-        app.openshift.io/vcs-uri: https://github.com/sanardi/cat-next-app
+        app.openshift.io/vcs-ref: b8107fe456da1a0a32e9f166f20c32cf6d422e8a
+        app.openshift.io/vcs-uri: https://github.com/Sanardi/cat-next-app
       labels:
         app: cat-e2e
         app.kubernetes.io/instance: cat-e2e
@@ -63,7 +63,7 @@ spec:
         - name: PROTOCOLS
         - name: LOG_LEVEL
           value: debug
-        image: quay.io/sanardibla/catherine-next-app:c7b33d0f09212d64370fba0d60ffe849b15f44e8
+        image: quay.io/sanardibla/catherine-next-app:b8107fe456da1a0a32e9f166f20c32cf6d422e8a
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
@@ -101,8 +101,8 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: c7b33d0f09212d64370fba0d60ffe849b15f44e8
-    app.openshift.io/vcs-uri: https://github.com/sanardi/cat-next-app
+    app.openshift.io/vcs-ref: b8107fe456da1a0a32e9f166f20c32cf6d422e8a
+    app.openshift.io/vcs-uri: https://github.com/Sanardi/cat-next-app
     argocd.argoproj.io/sync-options: Validate=false
     openshift.io/host.generated: "true"
   labels:
