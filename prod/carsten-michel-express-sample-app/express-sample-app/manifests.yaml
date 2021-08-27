@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: be75a334afece612692313fa54db66e413685b58
+    app.openshift.io/vcs-ref: 75b0eb8f9573468aea63c7003d3527eb362a831b
     app.openshift.io/vcs-uri: https://github.com/carstenmichel/express-sample-app
   labels:
     app: carsten-michel-express-sample-app
@@ -28,7 +28,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: be75a334afece612692313fa54db66e413685b58
+    app.openshift.io/vcs-ref: 75b0eb8f9573468aea63c7003d3527eb362a831b
     app.openshift.io/vcs-uri: https://github.com/carstenmichel/express-sample-app
   labels:
     app: carsten-michel-express-sample-app
@@ -49,7 +49,7 @@ spec:
   template:
     metadata:
       annotations:
-        app.openshift.io/vcs-ref: be75a334afece612692313fa54db66e413685b58
+        app.openshift.io/vcs-ref: 75b0eb8f9573468aea63c7003d3527eb362a831b
         app.openshift.io/vcs-uri: https://github.com/carstenmichel/express-sample-app
       labels:
         app: carsten-michel-express-sample-app
@@ -63,7 +63,7 @@ spec:
         - name: PROTOCOLS
         - name: LOG_LEVEL
           value: debug
-        image: quay.io/carstenmichel/express-sample-app:be75a334afece612692313fa54db66e413685b58
+        image: quay.io/carstenmichel/express-sample-app:75b0eb8f9573468aea63c7003d3527eb362a831b
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
@@ -108,7 +108,7 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: be75a334afece612692313fa54db66e413685b58
+    app.openshift.io/vcs-ref: 75b0eb8f9573468aea63c7003d3527eb362a831b
     app.openshift.io/vcs-uri: https://github.com/carstenmichel/express-sample-app
     argocd.argoproj.io/sync-options: Validate=false
     openshift.io/host.generated: "true"
