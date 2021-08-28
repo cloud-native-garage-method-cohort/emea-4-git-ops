@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: c7411236c082bb2ea07b4278cc1552c7b7c179ae
+    app.openshift.io/vcs-ref: 9ead338eb4bcb9c614c708504abd6e184c495740
     app.openshift.io/vcs-uri: https://github.com/davidbieder/fullstack-frontend
   labels:
     app: david-bieder-fullstack
@@ -28,7 +28,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: c7411236c082bb2ea07b4278cc1552c7b7c179ae
+    app.openshift.io/vcs-ref: 9ead338eb4bcb9c614c708504abd6e184c495740
     app.openshift.io/vcs-uri: https://github.com/davidbieder/fullstack-frontend
   labels:
     app: david-bieder-fullstack
@@ -49,7 +49,7 @@ spec:
   template:
     metadata:
       annotations:
-        app.openshift.io/vcs-ref: c7411236c082bb2ea07b4278cc1552c7b7c179ae
+        app.openshift.io/vcs-ref: 9ead338eb4bcb9c614c708504abd6e184c495740
         app.openshift.io/vcs-uri: https://github.com/davidbieder/fullstack-frontend
       labels:
         app: david-bieder-fullstack
@@ -68,7 +68,7 @@ spec:
             configMapKeyRef:
               key: backendUrl
               name: env-config
-        image: quay.io/davidbieder/fullstack-frontend:c7411236c082bb2ea07b4278cc1552c7b7c179ae
+        image: quay.io/davidbieder/fullstack-frontend:9ead338eb4bcb9c614c708504abd6e184c495740
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
@@ -106,7 +106,7 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: c7411236c082bb2ea07b4278cc1552c7b7c179ae
+    app.openshift.io/vcs-ref: 9ead338eb4bcb9c614c708504abd6e184c495740
     app.openshift.io/vcs-uri: https://github.com/davidbieder/fullstack-frontend
   labels:
     app: david-bieder-fullstack
