@@ -1,0 +1,123 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: 047804a98dc87f8bf3d0c3c04ac9691be46a4f53
+    app.openshift.io/vcs-uri: https://github.com/davidbieder/fullstack-frontend
+  labels:
+    app: david-bieder-fullstack-wip
+    app.kubernetes.io/instance: david-bieder-fullstack-wip
+    app.kubernetes.io/name: david-bieder-fullstack-wip-fullstack-frontend
+    app.openshift.io/runtime: js
+  name: frontend
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: david-bieder-fullstack-wip
+    app.kubernetes.io/instance: david-bieder-fullstack-wip
+    app.kubernetes.io/name: david-bieder-fullstack-wip-fullstack-frontend
+    app.openshift.io/runtime: js
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: 047804a98dc87f8bf3d0c3c04ac9691be46a4f53
+    app.openshift.io/vcs-uri: https://github.com/davidbieder/fullstack-frontend
+  labels:
+    app: david-bieder-fullstack-wip
+    app.kubernetes.io/instance: david-bieder-fullstack-wip
+    app.kubernetes.io/name: david-bieder-fullstack-wip-fullstack-frontend
+    app.openshift.io/runtime: js
+  name: frontend
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: david-bieder-fullstack-wip
+      app.kubernetes.io/instance: david-bieder-fullstack-wip
+      app.kubernetes.io/name: david-bieder-fullstack-wip-fullstack-frontend
+      app.openshift.io/runtime: js
+  template:
+    metadata:
+      annotations:
+        app.openshift.io/vcs-ref: 047804a98dc87f8bf3d0c3c04ac9691be46a4f53
+        app.openshift.io/vcs-uri: https://github.com/davidbieder/fullstack-frontend
+      labels:
+        app: david-bieder-fullstack-wip
+        app.kubernetes.io/instance: david-bieder-fullstack-wip
+        app.kubernetes.io/name: david-bieder-fullstack-wip-fullstack-frontend
+        app.openshift.io/runtime: js
+    spec:
+      containers:
+      - env:
+        - name: INGRESS_HOST
+        - name: PROTOCOLS
+        - name: LOG_LEVEL
+          value: debug
+        - name: BACKEND_URL
+          value: /api
+        image: quay.io/davidbieder/fullstack-frontend:047804a98dc87f8bf3d0c3c04ac9691be46a4f53
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 8080
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: frontend
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: http
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: 047804a98dc87f8bf3d0c3c04ac9691be46a4f53
+    app.openshift.io/vcs-uri: https://github.com/davidbieder/fullstack-frontend
+  labels:
+    app: david-bieder-fullstack-wip
+    app.kubernetes.io/instance: david-bieder-fullstack-wip
+    app.kubernetes.io/name: david-bieder-fullstack-wip-fullstack-frontend
+    app.openshift.io/runtime: js
+  name: frontend
+spec:
+  host: staging-david-bieder-fullstack-wip.ibmcloud-roks-twbby-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud
+  path: /
+  tls:
+    termination: edge
+  to:
+    kind: Service
+    name: frontend
+    weight: 100
+  wildcardPolicy: None
