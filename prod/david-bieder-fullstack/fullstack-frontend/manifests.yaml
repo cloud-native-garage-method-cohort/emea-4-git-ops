@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: eaeb3bfd0e2cd6504b5da687cd7d6f927bc2a608
+    app.openshift.io/vcs-ref: ba5a073d4cbb08239b3a2b2b80e52226bc674eea
     app.openshift.io/vcs-uri: https://github.com/davidbieder/fullstack-frontend
   labels:
     app: david-bieder-fullstack
@@ -28,7 +28,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: eaeb3bfd0e2cd6504b5da687cd7d6f927bc2a608
+    app.openshift.io/vcs-ref: ba5a073d4cbb08239b3a2b2b80e52226bc674eea
     app.openshift.io/vcs-uri: https://github.com/davidbieder/fullstack-frontend
   labels:
     app: david-bieder-fullstack
@@ -49,7 +49,7 @@ spec:
   template:
     metadata:
       annotations:
-        app.openshift.io/vcs-ref: eaeb3bfd0e2cd6504b5da687cd7d6f927bc2a608
+        app.openshift.io/vcs-ref: ba5a073d4cbb08239b3a2b2b80e52226bc674eea
         app.openshift.io/vcs-uri: https://github.com/davidbieder/fullstack-frontend
       labels:
         app: david-bieder-fullstack
@@ -64,11 +64,8 @@ spec:
         - name: LOG_LEVEL
           value: debug
         - name: BACKEND_URL
-          valueFrom:
-            configMapKeyRef:
-              key: backendUrl
-              name: env-config
-        image: quay.io/davidbieder/fullstack-frontend:eaeb3bfd0e2cd6504b5da687cd7d6f927bc2a608
+          value: /api
+        image: quay.io/davidbieder/fullstack-frontend:ba5a073d4cbb08239b3a2b2b80e52226bc674eea
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
@@ -106,7 +103,7 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: eaeb3bfd0e2cd6504b5da687cd7d6f927bc2a608
+    app.openshift.io/vcs-ref: ba5a073d4cbb08239b3a2b2b80e52226bc674eea
     app.openshift.io/vcs-uri: https://github.com/davidbieder/fullstack-frontend
   labels:
     app: david-bieder-fullstack
@@ -115,6 +112,8 @@ metadata:
     app.openshift.io/runtime: js
   name: frontend
 spec:
+  host: production-david-bieder-fullstack.ibmcloud-roks-twbby-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud
+  path: /
   tls:
     termination: edge
   to:
