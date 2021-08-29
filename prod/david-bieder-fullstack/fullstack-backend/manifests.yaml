@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: ca3bd9ae25b8bf06109b41fd9c6a3b8664a92726
+    app.openshift.io/vcs-ref: 5d7702304e8042d716f5b5d0ccc786bd891027f1
     app.openshift.io/vcs-uri: https://github.com/davidbieder/fullstack-backend
   labels:
     app: david-bieder-fullstack
@@ -28,7 +28,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: ca3bd9ae25b8bf06109b41fd9c6a3b8664a92726
+    app.openshift.io/vcs-ref: 5d7702304e8042d716f5b5d0ccc786bd891027f1
     app.openshift.io/vcs-uri: https://github.com/davidbieder/fullstack-backend
   labels:
     app: david-bieder-fullstack
@@ -49,7 +49,7 @@ spec:
   template:
     metadata:
       annotations:
-        app.openshift.io/vcs-ref: ca3bd9ae25b8bf06109b41fd9c6a3b8664a92726
+        app.openshift.io/vcs-ref: 5d7702304e8042d716f5b5d0ccc786bd891027f1
         app.openshift.io/vcs-uri: https://github.com/davidbieder/fullstack-backend
       labels:
         app: david-bieder-fullstack
@@ -63,7 +63,7 @@ spec:
         - name: PROTOCOLS
         - name: LOG_LEVEL
           value: debug
-        image: quay.io/davidbieder/fullstack-backend:ca3bd9ae25b8bf06109b41fd9c6a3b8664a92726
+        image: quay.io/davidbieder/fullstack-backend:5d7702304e8042d716f5b5d0ccc786bd891027f1
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
@@ -101,8 +101,9 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: ca3bd9ae25b8bf06109b41fd9c6a3b8664a92726
+    app.openshift.io/vcs-ref: 5d7702304e8042d716f5b5d0ccc786bd891027f1
     app.openshift.io/vcs-uri: https://github.com/davidbieder/fullstack-backend
+    haproxy.router.openshift.io/rewrite-target: /
   labels:
     app: david-bieder-fullstack
     app.kubernetes.io/instance: david-bieder-fullstack
@@ -110,6 +111,8 @@ metadata:
     app.openshift.io/runtime: js
   name: backend
 spec:
+  host: production-david-bieder-fullstack.ibmcloud-roks-twbby-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud
+  path: /api
   tls:
     termination: edge
   to:
